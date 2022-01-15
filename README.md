@@ -14,3 +14,14 @@ The branches named "chapter02-end", "chapter03-end" etc give the
 final source code after all the alterations in that chapter. Typically
 the source code at the end of a chapter is also identical to the start
 of the next chapter.
+
+
+# test
+- create test user
+```
+curl --cacert "$(mkcert -CAROOT)/rootCA.pem" -H 'Content-Type: application/json' -d '{"username":"test","password":"password"}' https://localhost:4567/users
+```
+- create session
+```
+curl --cacert "$(mkcert -CAROOT)/rootCA.pem" -i -u test:password -H 'Content-Type: application/json' -X POST https://localhost:4567/sessions
+```

@@ -11,7 +11,7 @@ public class CookieTokenStore implements TokenStore {
     @Override
     public String create(Request request, Token token) {
 
-        var session = request.session(false);
+        var session = request.session(false); // block session fixation
         if (session != null) {
             session.invalidate();
         }
