@@ -35,7 +35,7 @@ public class CookieTokenStore implements TokenStore {
         var provided = Base64url.decode(tokenId);
         var computed = sha256(session.id());
 
-        if (!MessageDigest.isEqual(computed, provided)) {
+        if (!MessageDigest.isEqual(computed, provided)) { // CSRF-Token check
             return Optional.empty();
         }
 

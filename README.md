@@ -25,3 +25,11 @@ curl --cacert "$(mkcert -CAROOT)/rootCA.pem" -H 'Content-Type: application/json'
 ```
 curl --cacert "$(mkcert -CAROOT)/rootCA.pem" -i -u test:password -H 'Content-Type: application/json' -X POST https://localhost:4567/sessions
 ```
+- create session and save cookie
+```
+curl --cacert "$(mkcert -CAROOT)/rootCA.pem" -i -c /tmp/cookies -u test:password -H 'Content-Type: application/json' -X POST https://localhost:4567/sessions
+```
+- request resource with the saved cookie
+```
+curl -b /tmp/cookies --cacert "$(mkcert -CAROOT)/rootCA.pem" -H 'Content-Type: application/json' -d '{"name":"test space","owner":"test"}'  https://localhost:4567/spaces 
+```
