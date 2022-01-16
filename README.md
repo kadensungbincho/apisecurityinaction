@@ -17,19 +17,23 @@ of the next chapter.
 
 
 # test
-- create test user
+- (1) create test user
 ```
 curl --cacert "$(mkcert -CAROOT)/rootCA.pem" -H 'Content-Type: application/json' -d '{"username":"test","password":"password"}' https://localhost:4567/users
 ```
-- create session
+- (2.1) create session
 ```
 curl --cacert "$(mkcert -CAROOT)/rootCA.pem" -i -u test:password -H 'Content-Type: application/json' -X POST https://localhost:4567/sessions
 ```
-- create session and save cookie
+- (2.2) create session and save cookie
 ```
 curl --cacert "$(mkcert -CAROOT)/rootCA.pem" -i -c /tmp/cookies -u test:password -H 'Content-Type: application/json' -X POST https://localhost:4567/sessions
 ```
-- request resource with the saved cookie
+- (3.1) request resource with the saved cookie
 ```
-curl -b /tmp/cookies --cacert "$(mkcert -CAROOT)/rootCA.pem" -H 'Content-Type: application/json' -d '{"name":"test space","owner":"test"}'  https://localhost:4567/spaces 
+curl --cacert "$(mkcert -CAROOT)/rootCA.pem" -b /tmp/cookies -H 'Content-Type: application/json' -d '{"name":"test space","owner":"test"}'  https://localhost:4567/spaces 
+```
+- (3.2) request resource with the saved cookie and 'X-CSRF-Token'
+```
+curl --cacert "$(mkcert -CAROOT)/rootCA.pem" -i -b /tmp/cookies -H 'Content-Type: application/json' -H 'X-CSRF-Token: <Token response you get from (2.2)>' -d '{"name":"test space","owner":"test"}' https://localhost:4567/spaces
 ```

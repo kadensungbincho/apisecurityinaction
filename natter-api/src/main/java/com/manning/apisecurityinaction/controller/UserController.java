@@ -76,7 +76,7 @@ public class UserController {
 
     public void requireAuthentication(Request request, Response response) {
         if (request.attribute("subject") == null) {
-            halt(401);
+            halt(401); // halt with a 401 error if the user is not authenticated but leave out the WWW-Authenticate header
         }
     }
 
